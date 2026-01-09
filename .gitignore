@@ -3,6 +3,8 @@
 # dependencies
 
 /node_modules
+/keys
+/keys-copy
 /.pnp
 /.vscode
 .pnp.js
