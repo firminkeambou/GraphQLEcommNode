@@ -1,0 +1,15 @@
+# variables in Query must match those in resolvers
+type Query {
+  orders: [Order]
+}
+type Order {
+  id: ID!
+  date: String!
+  subtotal: Float!
+  items: [OrderItem]!
+}
+type OrderItem {
+  product: Product!
+  quantity: Int!
+  price: Float!
+}
