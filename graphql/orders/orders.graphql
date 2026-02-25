@@ -1,4 +1,6 @@
+## THIs is a schema file
 # variables in Query must match those in resolvers
+# Query and Mutation are root level type
 type Query {
   orders: [Order]
 }

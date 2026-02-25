@@ -1,9 +1,15 @@
-# three query types possible: products, productsByPrice, and productByID; do not forget to update resolvers accordingly
+# THIs is a schema file
+#three query types possible: products, productsByPrice, and productByID; do not forget to update resolvers accordingly
 # variables in Query must match those in resolvers
+# Query and Mutation are root level type
 type Query {
   products: [Product]
   productsByPrice(min: Float!, max: Float!): [Product]
   productByID(id: ID!): Product
+}
+type Mutation {
+  addNewProduct(id: ID!, description: String!, price: Float!): Product
+  addNewProductReview(id: ID!, rating: Int!, comment: String): Product
 }
 
 type Product {

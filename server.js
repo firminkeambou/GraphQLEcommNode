@@ -47,17 +47,17 @@ const ordersModel = require('./graphql/orders/orders.model');
     }
 
 `); */
-//const typesArray = loadFilesSync(path.join(__dirname, 'graphql', '**', '*.graphql')); // or ("**/*.graphql") Load all .graphql files in the project ('**' means looking in directories and subdirectories)
+//const typesArray = loadFilesSync(path.join(__dirname, 'graphql', '**', '*.graphql')); // or ("**/*.graphql") Load all .graphql files in the project ('**' means looking in the current directory and subdirectories)
 const typesArray = loadFilesSync('**/*', {
   extensions: ['graphql'],
-});
+}); // all the types needed
 
 const resolversArray = loadFilesSync('**/*', {
   extensions: ['resolvers.js'],
 });
 //run makeExecutableSchema to create the schema by combining type definitions and resolvers
 const schema = makeExecutableSchema({
-  typeDefs: typesArray, // Array of loaded type definitions, order doesn't matter as they will be merged
+  typeDefs: typesArray, // Array of loaded type definitions, the order doesn't matter as they will be merged
   resolvers: resolversArray,
 });
 

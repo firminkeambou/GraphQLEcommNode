@@ -1,16 +1,18 @@
 // Sample data for products called model
 // In a real application, this data would come from a database
 //assuming products come from in-memory array or database
-const products = [
+let products = [
   {
     id: 'redShoe',
     description: 'Red fancy shoe',
     price: 12.99,
+    reviews: [],
   },
   {
     id: 'blueShoe',
     description: 'Blue fancy shoe',
     price: 15.99,
+    reviews: [],
   },
 ];
 
@@ -45,13 +47,56 @@ const getProductByID = async (id) => {
   const product = await new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(products.find((product) => product.id === id));
-    }, 5000);
+    }, 1000);
   });
   return product;
 };
+const addNewProduct = (id, description, price) => {
+  const newProduct = { id, description, price, reviews: [] };
+  products.push(newProduct);
+  console.log('lentgh of the model', products.length);
+  return newProduct;
+};
+
+//first implementation by me that works with time O(n)
+const addNewProductReview = (id, rating, comment) => {
+  let newProduct;
+  //const newReview = { rating, comment };
+  //console.log('review to update', newReview);
+  const updatedProducts = products.map((product) => {
+    // Check for the object to update
+    if (product.id === id) {
+      // Return a *new* object with the updated property
+
+      newProduct = {
+        ...product,
+        reviews: [...product.reviews, { rating, comment }],
+      };
+      console.log('new product detected', newProduct);
+      return newProduct;
+    }
+    // Otherwise, return the original object
+    return product;
+  });
+  products = updatedProducts;
+  console.log('products', products);
+  return newProduct;
+};
+//second implementation, mutation of the original array
+// as find and filter does not create new references
+const addNewProductReview2 = async (id, rating, comment) => {
+  const matchedProduct = await getProductByID(id);
+  if (matchedProduct) {
+    matchedProduct.reviews.push({ rating, comment });
+    return matchedProduct;
+  }
+};
+// console.log('products', products);
 
 module.exports = {
   getAllProducts,
   getProductsByPrice,
   getProductByID,
+  addNewProduct,
+  addNewProductReview,
 };
